@@ -1,47 +1,36 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { Consumer } from './Context';
 
-class AddPlayerForm extends Component {
-    static propTypes = {
-        addPlayer: PropTypes.func
-    };
+const AddPlayerForm = () => {
 
-    state = {
-        value: ''
-    }
+    const playerInput = React.createRef();
 
-    handleValueChange = (e) => {
-        this.setState({ value: e.target.value });
-    }
+        return (
+            <Consumer>
+                { context => {
+                   const handleSubmit = (e) => {
+                    e.preventDefault();
+                    context.actions.addPlayer(playerInput.current.value);
+                    e.currentTarget.reset();
+                }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const { addPlayer } = this.props;
-
-        if(this.state.value) {
-            addPlayer(this.state.value);
-        };
-
-        this.setState({ value: '' });
-    }
-
-    render() {
-        // console.log(this.state.value);
-        return(
-            <form onSubmit={this.handleSubmit}>
+        return (
+            <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 
                     placeholder="Add players name"
-                    value={this.state.value}
-                    onChange={this.handleValueChange}
+                    ref={playerInput}
+                    // onChange={handleValueChange}
                 />
                 <input
                     type="submit"
                     value="Add Player"
                 />
             </form>
-        )
-    }
+        );
+    }}
+    </Consumer>
+    );
 }
 
 export default AddPlayerForm;

@@ -1,26 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Stats from './Stats';
 import StopWatch from './StopWatch';
 
-const Header = ({ players, title }) => {
+const Header = () => {
     return (
       <header>
-        <Stats players={ players }/>
-        <h1>{ title }</h1>
+        <Stats />
+        <h1>Scoreboard</h1>
         <StopWatch />
       </header>
     );
   }
 
-Header.defaultProps = {
-  title: 'Scoreboard'
-};
-
-Header.propTypes = {
-  players: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired
-};
-
-  export default Header;
+export default Header;
   
